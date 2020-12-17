@@ -1,5 +1,4 @@
 #!/bin/sh
-set +e
 
 sed -i 's/bridge=cni0/bridge=none/' /var/vcap/jobs/docker/bin/job_properties.sh
 sed -i '/flannel/d' /var/vcap/jobs/docker/bin/job_properties.sh
@@ -9,3 +8,4 @@ sed -i '/DOCKER_BRIDGE_CIDR/d' /var/vcap/jobs/docker/bin/job_properties.sh
 sed -i '/create_network_bridge$/d'  /var/vcap/jobs/docker/bin/ctl
 ip link del cni0
 ip link del docker0
+exit 0
