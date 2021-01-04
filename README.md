@@ -6,9 +6,10 @@ For Flannel-enabled PKS and TKGI clusters, this disables the pre-creation of the
 
 The docker0 bridge is superfluous and unnecessary, so it's just deleted and not created.
 
-This is useful if you churn a lot of Pods, the `cni0` interface MAC addresses will change on every veth creation (pod), which is due to a long standing bug
+This also ensures the CNI "bridge" plugin properly creates the cni0 bridge rather than the BASH initialisation scripts in the TKGI docker BOSH release.  This is useful if you churn a lot of Pods, the `cni0` interface MAC addresses will change on every veth creation (pod), which is due to a long standing bug
 where Docker was creating this bridge before the CNI plugin, and thereby defaulting to Linux bridge default behavior of ephemeral MAC addresses.   This manifests in ARP cache misses in the Pods fairly often, which can slow high throughput workloads.
 
+Another indirect issue this fixes is that the Docker daemon networking will no longer get out of sync with the flannel etcd database, which can happen in the case of power outages or reboots.
 ## How do I install it?
 
 1. Open a shell prompt on a BOSH CLI with access to your TKGI bosh director, such as Ops Manager.
