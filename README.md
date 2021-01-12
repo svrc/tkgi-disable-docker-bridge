@@ -2,7 +2,8 @@
 
 ## What does this do?
 
-For Flannel-enabled PKS and TKGI clusters, this disables the pre-creation of the cni0 bridge and docker0 bridge.   
+For Flannel-enabled PKS and TKGI clusters prior to 1.9.3, this disables the pre-creation of the cni0 bridge and docker0 bridge. 
+TKGI 1.9.3+ does not need this addon. 
 
 The docker0 bridge is superfluous and unnecessary, so it's just deleted and not created.
 
